@@ -4,6 +4,7 @@
 // Create the `showPage` function
 // This function will create and insert/append the elements needed to display a "page" of nine students
 
+
 function showPage(list, page) {
 let startIndex = (page * 9) - 9;
 let endIndex = page * 8;
@@ -27,12 +28,16 @@ for (i=0; i<list.length; i++) {
 		h3.textContent = `${list[i].name.title} ${list[i].name.first} ${list[i].name.last}`;
 		div.appendChild(h3);
 		const span = document.createElement('span');
-		span.className = "date";
+		span.className = "email";
 		span.textContent = `${list[i].email}`;
 		div.appendChild(span);
+		// const div2 = document.createElement('div');
+		// div2.className = "joined-details";
+		// ul.appendChild(div2);
 		const span2 = document.createElement('span');
-		span.className = "date";
-		span.textContent = `${list[i].registered.date}`;
+		span2.className = "date";
+		span2.textContent = `${list[i].registered.date}`;
+		div.appendChild(span2);
 
 		} else {
 			// alert("Hmm!");
