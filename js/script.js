@@ -7,14 +7,14 @@
 
 function showPage(list, page) {
 let startIndex = (page * 9) - 9;
-let endIndex = page * 8;
+let endIndex = (page * 9) - 1;
 const ul = document.querySelector('.student-list');
 ul.innerHTML = "";
 
 for (i=0; i<list.length; i++) {
 	if (i >= startIndex && i<= endIndex) {
 		const li = document.createElement('li');
-		li.className = "stduent-item cf";
+		li.className = "student-item cf";
 		ul.appendChild(li);
 		const div = document.createElement('div');
 		div.className = "student-details";
@@ -39,13 +39,63 @@ for (i=0; i<list.length; i++) {
 		span2.textContent = `${list[i].registered.date}`;
 		div.appendChild(span2);
 
+		// let html = `
+		// 	  <li class="student-item cf">
+  //         <div class="student-details">
+  //           <img class="avatar" src="${list[i].picture.thumbnail}" alt="Profile Picture">
+  //           <h3>${list[i].name.title} ${list[i].name.first} ${list[i].name.last}</h3>
+  //           <span class="email">${list[i].email}</span>
+  //         </div>
+  //         <div class="joined-details">
+  //           <span class="date">${list[i].registered.date}</span>
+  //         </div>
+  //       </li>
+		// `;
+		// ul.innerHTML += html;
+
 		} else {
 			// alert("Hmm!");
 	}
 }
 };
 
-showPage(data, 1);
+let pageNo = 1;
+showPage(data, pageNo);
+// pageNo = prompt("Which page number would you like to see?");
+// showPage(data, pageNo);
+
+function appendPageLinks(list) {
+const noOfPages = list.length / 9;
+const lowerUL = document.querySelector('.link-list');
+lowerUL.innerHTML = '';
+for (z=1; z<noOfPages+1; z++) {
+	li = document.createElement('li');
+	button = document.createElement('button');
+	button.textContent = z;
+	// button.className = "active";
+	if (button.textContent == pageNo) {
+		button.className = "active";
+	} else {
+		button.className = ""
+	}
+	lowerUL.appendChild(li);
+	li.appendChild(button);
+};
+};
+
+
+appendPageLinks(data);
+
+document.querySelector('.link-list').addEventListener('click', (e) => {
+const action = e.target.textContent;
+showPage(data, action);
+if (button.textContent == pageNo) {
+		button.className = "active";
+	} else {
+		button.className = ""
+	}
+});
+
 
 
 // /*
