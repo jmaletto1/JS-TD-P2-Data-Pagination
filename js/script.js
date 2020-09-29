@@ -4,6 +4,31 @@
 // Create the `showPage` function
 // This function will create and insert/append the elements needed to display a "page" of nine students
 
+function searchData() {
+const header = document.querySelector('.header');
+const label = document.createElement('label');
+label.for = "search";
+label.className = "student-search";
+header.appendChild(label);
+const input = document.createElement('input');
+input.id = "search";
+input.placeholder = "search by name..";
+header.appendChild(input);
+const searchButton = document.createElement('button');
+searchButton.type = 'button';
+searchButton.id = 'search';
+header.appendChild(searchButton);
+buttonIMG = document.createElement('img');
+buttonIMG.src = "img/icn-search.svg";
+searchButton.appendChild(buttonIMG);
+
+searchButton.addEventListener('submit', (e) => {
+	e.preventDefault();
+	alert(input.value);
+});          
+};
+
+searchData();
 
 function showPage(list, page) {
 let startIndex = (page * 9) - 9;
@@ -80,29 +105,31 @@ for (z=1; z<noOfPages+1; z++) {
 	}
 	lowerUL.appendChild(li);
 	li.appendChild(button);
+	button.addEventListener('click', (e) => {
+pageNo = e.target.textContent;
+showPage(data, pageNo);
+appendPageLinks(data);
+});
 };
 };
 
 
 appendPageLinks(data);
 
-document.querySelector('.link-list').addEventListener('click', (e) => {
-const action = e.target.textContent;
-showPage(data, action);
-if (button.textContent == pageNo) {
-		button.className = "active";
-	} else {
-		button.className = ""
-	}
-});
-
-
-
 // /*
 // Create the `addPagination` function
 // This function will create and insert/append the elements needed for the pagination buttons
 // */
 
+// document.querySelector('.link-list').addEventListener('click', (e) => {
+// const action = e.target.textContent;
+// showPage(data, action);
+// if (button.textContent == pageNo) {
+// 		button.className = "active";
+// 	} else {
+// 		button.className = ""
+// 	}
+// });
 
 
 // // Call functions
