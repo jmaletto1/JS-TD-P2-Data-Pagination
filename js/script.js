@@ -29,11 +29,7 @@ let endIndex = (page * 9) - 1;
 const ul = document.querySelector('.student-list');
 ul.innerHTML = "";
 
-for (i=0; i<list.length; i++) {
-	if (nameKey === '') {
-		if (i >= startIndex && i<= endIndex && nameKey === '') {
-			listMaker();
-			function listMaker() {
+function listMaker() {
 			const li = document.createElement('li');
 			li.className = "student-item cf";
 			ul.appendChild(li);
@@ -52,20 +48,22 @@ for (i=0; i<list.length; i++) {
 			span.className = "email";
 			span.textContent = `${list[i].email}`;
 			div.appendChild(span);
-			// const div2 = document.createElement('div');
-			// div2.className = "joined-details";
-			// ul.appendChild(div2);
 			const span2 = document.createElement('span');
 			span2.className = "date";
 			span2.textContent = `${list[i].registered.date}`;
 			div.appendChild(span2);
 	};
+
+for (i=0; i<list.length; i++) {
+		if (i >= startIndex && i<= endIndex) {
+				if (nameKey === '') {
+			listMaker();
 }
 		} else if (nameKey) {
 						if (list[i].name.first === nameKey || list[i].name.last === nameKey) {
 								for (i=0; i<list.length; i++) {
 				console.log(list[i].name.first);
-listMaker(data);
+listMaker();
 	}
 }}}
 };
