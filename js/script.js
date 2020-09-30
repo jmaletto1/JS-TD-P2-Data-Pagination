@@ -52,6 +52,7 @@ lowerUL.innerHTML = '';
 for (pNum=1; pNum<noOfPages+1; pNum++) {
 	li = document.createElement('li');
 	button = document.createElement('button');
+	button.id = pNum;
 	button.textContent = pNum;
 	// button.className = "active";
 	if (button.textContent == pageNo) {
@@ -63,8 +64,15 @@ for (pNum=1; pNum<noOfPages+1; pNum++) {
 	li.appendChild(button);
 	button.addEventListener('click', (e) => {
 pageNo = e.target.textContent;
+const totalButtons = lowerUL.querySelectorAll('li button');
+for (let butNo = 0; butNo < totalButtons.length; butNo++) {
+	if (totalButtons[butNo].className === "active") {
+		totalButtons[butNo].className = '';
+	}
+	e.target.className = "active";
+}
 showPage(data, pageNo);
-appendPageLinks(data);
+// appendPageLinks(data);
 });
 };
 };
