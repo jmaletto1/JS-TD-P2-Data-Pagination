@@ -1,38 +1,19 @@
 // Treehouse Techdegree:
 // FSJS Project 2 - Data Pagination and Filtering
+let pageNo = 1;
+let ul = document.querySelector('.student-list');
+ul.innerHTML = "";
 
 // Create the `showPage` function
 // This function will create and insert/append the elements needed to display a "page" of nine students
-let pageNo = 1;
-
-function searchForm() {
-const header = document.querySelector('.header');
-let searchHTML = `<label for="search" class="student-search">
-            <input id="searchMaster" placeholder="Search by name...">
-            <button type="button" id="search"><img src="img/icn-search.svg" alt="Search icon"></button>
-          </label>`;          
-header.innerHTML += searchHTML;
-header.addEventListener('submit', (e) => {
-	e.preventDefault();
-	alert(input.value);
-});
-let searchMaster = document.getElementById('searchMaster');
-let nameKey = searchMaster.input;
-searchMaster.addEventListener('keyup', showPage(data, pageNo));
-};
-
-searchForm();
 
 function showPage(list, page) {
-let input = document.getElementById('search');
-let nameKey = input.value;
-console.log(nameKey);
 let startIndex = (page * 9) - 9;
 let endIndex = (page * 9) - 1;
-const ul = document.querySelector('.student-list');
 ul.innerHTML = "";
 
-function listMaker(i) {
+for (let i=0; i<list.length; i++) {
+		if (i >= startIndex && i<= endIndex) {
 			const li = document.createElement('li');
 			li.className = "student-item cf";
 			ul.appendChild(li);
@@ -56,33 +37,22 @@ function listMaker(i) {
 			span2.textContent = `${list[i].registered.date}`;
 			div.appendChild(span2);
 	};
-
-for (let i=0; i<list.length; i++) {
-		if (i >= startIndex && i<= endIndex) {
-				if (nameKey === '') {
-			listMaker(i);
 }
-		} else if (nameKey) {
-						if (list[i].name.first === nameKey || list[i].name.last === nameKey) {
-								for (let j=0; j<list.length; j++) {
-				console.log(list[j].name.first);
-listMaker(j);
-	}
-}}}
 };
 
-showPage(data, pageNo);
-// pageNo = prompt("Which page number would you like to see?");
-// showPage(data, pageNo);
+// /*
+// Create the `addPagination` function
+// This function will create and insert/append the elements needed for the pagination buttons
+// */
 
 function appendPageLinks(list) {
 const noOfPages = list.length / 9;
 const lowerUL = document.querySelector('.link-list');
 lowerUL.innerHTML = '';
-for (z=1; z<noOfPages+1; z++) {
+for (pNum=1; pNum<noOfPages+1; pNum++) {
 	li = document.createElement('li');
 	button = document.createElement('button');
-	button.textContent = z;
+	button.textContent = pNum;
 	// button.className = "active";
 	if (button.textContent == pageNo) {
 		button.className = "active";
@@ -99,23 +69,35 @@ appendPageLinks(data);
 };
 };
 
+// Search Function
+function searchForm() {
+const header = document.querySelector('.header');
+let searchHTML = `<label for="search" class="student-search">
+            <input id="searchMaster" placeholder="Search by name...">
+            <button type="button" id="searchButton"><img src="img/icn-search.svg" alt="Search icon"></button>
+          </label>`;          
+header.innerHTML += searchHTML;
+const searchData = document.getElementById('searchMaster');
 
-appendPageLinks(data);
-
-// /*
-// Create the `addPagination` function
-// This function will create and insert/append the elements needed for the pagination buttons
-// */
-
-// document.querySelector('.link-list').addEventListener('click', (e) => {
-// const action = e.target.textContent;
-// showPage(data, action);
-// if (button.textContent == pageNo) {
-// 		button.className = "active";
-// 	} else {
-// 		button.className = ""
-// 	}
-// });
-
+searchData.addEventListener('keyup', (e) => {
+searchValue = e.target.value.toUpperCase();
+const results = [];
+for (let entry=0; entry<data.length; entry++) {
+	const firstName = data[entry].name.first.toUpperCase();
+	const lastName = data[entry].name.last.toUpperCase();
+		if(firstName.includes(searchValue) || lastName.includes(searchValue)) {
+		results.push(data[entry])
+		showPage(results, 1);
+		appendPageLinks(results);
+	} else if (results.length === 0) {
+		ul.innerHTML = "<div><h3> Unfortunately there are no matches! Please try again.</h3></div>";//
+		appendPageLinks(results);
+	}
+}
+})
+}
 
 // // Call functions
+showPage(data, pageNo);
+appendPageLinks(data);
+searchForm();
