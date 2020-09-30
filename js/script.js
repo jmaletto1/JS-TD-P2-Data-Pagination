@@ -63,16 +63,15 @@ for (pNum=1; pNum<noOfPages+1; pNum++) {
 	lowerUL.appendChild(li);
 	li.appendChild(button);
 	button.addEventListener('click', (e) => {
-pageNo = e.target.textContent;
 const totalButtons = lowerUL.querySelectorAll('li button');
 for (let butNo = 0; butNo < totalButtons.length; butNo++) {
 	if (totalButtons[butNo].className === "active") {
 		totalButtons[butNo].className = '';
 	}
 	e.target.className = "active";
+	pageNo = e.target.textContent;
 }
-showPage(data, pageNo);
-// appendPageLinks(data);
+showPage(list, pageNo);
 });
 };
 };
