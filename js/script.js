@@ -29,7 +29,7 @@ let endIndex = (page * 9) - 1;
 const ul = document.querySelector('.student-list');
 ul.innerHTML = "";
 
-function listMaker() {
+function listMaker(i) {
 			const li = document.createElement('li');
 			li.className = "student-item cf";
 			ul.appendChild(li);
@@ -54,16 +54,16 @@ function listMaker() {
 			div.appendChild(span2);
 	};
 
-for (i=0; i<list.length; i++) {
+for (let i=0; i<list.length; i++) {
 		if (i >= startIndex && i<= endIndex) {
 				if (nameKey === '') {
-			listMaker();
+			listMaker(i);
 }
 		} else if (nameKey) {
 						if (list[i].name.first === nameKey || list[i].name.last === nameKey) {
-								for (i=0; i<list.length; i++) {
+								for (let i=0; i<list.length; i++) {
 				console.log(list[i].name.first);
-listMaker();
+listMaker(i);
 	}
 }}}
 };
