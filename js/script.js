@@ -8,14 +8,17 @@ let pageNo = 1;
 function searchForm() {
 const header = document.querySelector('.header');
 let searchHTML = `<label for="search" class="student-search">
-            <input id="search" onkeyup="showPage(data, pageNo)" placeholder="Search by name...">
+            <input id="searchMaster" placeholder="Search by name...">
             <button type="button" id="search"><img src="img/icn-search.svg" alt="Search icon"></button>
-          </label>`;
+          </label>`;          
 header.innerHTML += searchHTML;
 header.addEventListener('submit', (e) => {
 	e.preventDefault();
 	alert(input.value);
-});          
+});
+let searchMaster = document.getElementById('searchMaster');
+let nameKey = searchMaster.input;
+searchMaster.addEventListener('keyup', showPage(data, pageNo));
 };
 
 searchForm();
@@ -61,9 +64,9 @@ for (let i=0; i<list.length; i++) {
 }
 		} else if (nameKey) {
 						if (list[i].name.first === nameKey || list[i].name.last === nameKey) {
-								for (let i=0; i<list.length; i++) {
-				console.log(list[i].name.first);
-listMaker(i);
+								for (let j=0; j<list.length; j++) {
+				console.log(list[j].name.first);
+listMaker(j);
 	}
 }}}
 };
