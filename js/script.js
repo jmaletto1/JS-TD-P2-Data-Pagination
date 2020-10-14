@@ -1,43 +1,48 @@
 // Treehouse Techdegree:
 // FSJS Project 2 - Data Pagination and Filtering
 let pageNo = 1;
-let ul = document.querySelector('.student-list');
+const ul = document.querySelector('.student-list');
 ul.innerHTML = "";
 
 // Create the `showPage` function
 // This function will create and insert/append the elements needed to display a "page" of nine students
+function createElement(elementName, property) {
+	const element = document.createElement(elementName);
+	element.className = property;
+	return element;
+}
+
+function appendToDiv(element, elementName, property, value) {
+	el = createElement(elementName, property, value);
+	if (elementName == "img") {
+		el.src = value;
+		el.alt = property;
+		el.className = "avatar";
+	} else {
+		el.textContent = value;
+	}
+	element.appendChild(el);
+}
+
 
 function showPage(list, page) {
-let startIndex = (page * 9) - 9;
+const startIndex = (page * 9) - 9;
 let endIndex = (page * 9) - 1;
 ul.innerHTML = "";
 
 for (let i=0; i<list.length; i++) {
 		if (i >= startIndex && i<= endIndex) {
-// The function now creates the full UL element, step by step.
-// The relevant array/object data is displayed for each result.			
-			const li = document.createElement('li');
-			li.className = "student-item cf";
-			ul.appendChild(li);
-			const div = document.createElement('div');
-			div.className = "student-details";
+
+			const li = createElement('li', 'student-item cf');
+			const div = createElement('div', 'student-details');
+
+			appendToDiv(div, 'img', 'Profile Picture', `${list[i].picture.thumbnail}`);
+			appendToDiv(div, 'h3', `${list[i].name.title} ${list[i].name.first} ${list[i].name.last}`);
+			appendToDiv(div, 'span', 'email', `${list[i].email}`);
+			appendToDiv(div, 'span2', 'date', `${list[i].registered.date}`);
+
 			li.appendChild(div);
-			const img = document.createElement('img');
-			img.className = "avatar";
-			img.src = `${list[i].picture.thumbnail}`;
-			img.alt = "Profile Picture";
-			div.appendChild(img);
-			const h3 = document.createElement('h3');
-			h3.textContent = `${list[i].name.title} ${list[i].name.first} ${list[i].name.last}`;
-			div.appendChild(h3);
-			const span = document.createElement('span');
-			span.className = "email";
-			span.textContent = `${list[i].email}`;
-			div.appendChild(span);
-			const span2 = document.createElement('span');
-			span2.className = "date";
-			span2.textContent = `${list[i].registered.date}`;
-			div.appendChild(span2);
+			ul.appendChild(li);
 	};
 }
 };
@@ -93,7 +98,7 @@ showPage(list, pageNo);
 // This function starts off by selecting the header element, and adding the necessary HTML to accept search input.
 function searchForm() {
 const header = document.querySelector('.header');
-let searchHTML = `<label for="search" class="student-search">
+const searchHTML = `<label for="search" class="student-search">
             <input id="searchMaster" placeholder="Search by name...">
             <button type="button" id="searchButton"><img src="img/icn-search.svg" alt="Search icon"></button>
           </label>`;          
